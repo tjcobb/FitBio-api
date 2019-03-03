@@ -14,7 +14,7 @@ custom:
     dockerizePip: non-linux
   stage: ${opt:stage, self:provider.stage}
   databaseName: 'fitbio-${self:custom.stage}'
-  weightTableName: 'weight-table-${self:custom.stage}'
+  weightTableName: 'weights'
 
 provider:
   name: aws
@@ -26,8 +26,12 @@ provider:
     WEIGHT_COLLECTION: ${self:custom.weightTableName}
 
 functions:
-  app:
+  get_weight:
     handler: wsgi.handler
     events:
-      - http: ANY /
+      - http: GET /weight/{proxy+}
       - http: 'ANY {proxy+}'
+  insert_weight:
+    handler: wsgi.handler
+    events:
+      - http: POST /weight
