@@ -12,12 +12,18 @@ custom:
     packRequirements: false
   pythonRequirements:
     dockerizePip: non-linux
+  stage: ${opt:stage, self:provider.stage}
+  databaseName: 'fitbio-${self:custom.stage}'
+  weightTableName: 'weight-table-${self:custom.stage}'
 
 provider:
   name: aws
   runtime: python3.6
   stage: dev
   region: us-east-1
+  environment:
+    FITBIO_DB: ${self:custom.databaseName}
+    WEIGHT_COLLECTION: ${self:custom.weightTableName}
 
 functions:
   app:
