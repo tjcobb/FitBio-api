@@ -1,6 +1,6 @@
 # serverless.yml
 
-service: serverless-flask
+service: fitbio
 
 plugins:
   - serverless-python-requirements
@@ -29,9 +29,14 @@ functions:
   get_weight:
     handler: wsgi.handler
     events:
-      - http: GET /weight/{proxy+}
-      - http: 'ANY {proxy+}'
+      - http:
+          path: /weight
+          method: GET
+          authorizer: aws_iam
   insert_weight:
     handler: wsgi.handler
     events:
-      - http: POST /weight
+      - http:
+          path: /weight
+          method: POST
+          authorizer: aws_iam
