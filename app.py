@@ -12,6 +12,7 @@ WeightCollection = FitbioDB[os.environ["WEIGHT_COLLECTION"]]
 @app.route("/weight/<string:user_id>", methods=["GET"])
 def get_weight(user_id):
     # TODO - user validation
+    print(request.headers)
     print("Getting weights for {0}".format(user_id))
     res = WeightCollection.find_one({"user_id": user_id}) or {}
 
