@@ -1,4 +1,4 @@
-import json
+from flask import jsonify, make_response
 
 
 def success(body):
@@ -10,11 +10,7 @@ def failure(body):
 
 
 def build_response(status_code, body):
-    return {
-        "statusCode": status_code,
-        "headers": {
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Credentials": True
-        },
-        body: json.dumps(body)
-    }
+    resp = make_response(jsonify(body), status_code)
+    resp.headers['Access-Control-Allow-Origin'] = '*'
+    resp.headers['Access-Control-Allow-Credentials'] = True
+    return resp
