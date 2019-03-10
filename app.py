@@ -3,7 +3,6 @@ import pymongo
 import os
 from lib import ResponseBuilder
 from flask import Flask, request
-from pprint import pprint
 
 app = Flask(__name__)
 
@@ -12,13 +11,10 @@ FitbioDB = MongoClient[os.environ["FITBIO_DB"]]
 WeightCollection = FitbioDB[os.environ["WEIGHT_COLLECTION"]]
 
 
-@app.route("/weight", methods=["GET"])
-def get_weight():
+@app.route("/weight<string:user_id>", methods=["GET"])
+def get_weight(user_id):
     # TODO - user validation
-    print(vars(request))
-    print("BREAK")
-    print(request.__dir__())
-    res = WeightCollection.find_one({"user_id": "tyler"}) or {}
+    res = WeightCollection.find_one({"user_id": user_id}) or {}
 
     # ObjectId not serializable, there is probably a better way to do this
     if "_id" in res:
