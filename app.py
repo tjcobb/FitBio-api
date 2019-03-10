@@ -3,6 +3,8 @@ import pymongo
 import os
 from lib import ResponseBuilder
 from flask import Flask, request
+from pprint import pprint
+
 app = Flask(__name__)
 
 MongoClient = pymongo.MongoClient("mongodb+srv://fitbio-app:RIAUhKkDs4mVwHFH@tylercobbtestcluster-atvya.mongodb.net/test?retryWrites=true")
@@ -13,8 +15,7 @@ WeightCollection = FitbioDB[os.environ["WEIGHT_COLLECTION"]]
 @app.route("/weight", methods=["GET"])
 def get_weight():
     # TODO - user validation
-    print("HEADERS", request.headers)
-    print("JSON", request.json)
+    pprint(vars(request))
     res = WeightCollection.find_one({"user_id": "tyler"}) or {}
 
     # ObjectId not serializable, there is probably a better way to do this
@@ -26,9 +27,6 @@ def get_weight():
 
 @app.route("/weight", methods=["POST"])
 def insert_weight():
-    print("HEADERS", request.headers)
-    print("JSON", request.json)
-
     # TODO - Input validation
     # TODO - Sort by date?
     # TODO - Consider max doc size of 16MB if we are storing all weights for someone in single doc
