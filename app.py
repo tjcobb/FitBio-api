@@ -13,7 +13,8 @@ WeightCollection = FitbioDB[os.environ["WEIGHT_COLLECTION"]]
 @app.route("/weight", methods=["GET"])
 def get_weight():
     # TODO - user validation
-    print(request.headers)
+    print("HEADERS", request.headers)
+    print("JSON", request.json)
     res = WeightCollection.find_one({"user_id": "tyler"}) or {}
 
     # ObjectId not serializable, there is probably a better way to do this
@@ -25,7 +26,8 @@ def get_weight():
 
 @app.route("/weight", methods=["POST"])
 def insert_weight():
-    print(request.headers)
+    print("HEADERS", request.headers)
+    print("JSON", request.json)
 
     # TODO - Input validation
     # TODO - Sort by date?
