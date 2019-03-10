@@ -30,15 +30,15 @@ functions:
     handler: wsgi_handler.handler
     events:
       - http:
-          path: /weight
-          method: GET
+          path: weight
+          method: get
           cors: true
 #          authorizer: aws_iam
   insert-weight:
     handler: wsgi_handler.handler
     events:
       - http:
-          path: /weight
-          method: POST
+          path: weight
+          method: post
           cors: true
 #          authorizer: aws_iam
