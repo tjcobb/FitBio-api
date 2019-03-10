@@ -11,7 +11,7 @@ FitbioDB = MongoClient[os.environ["FITBIO_DB"]]
 WeightCollection = FitbioDB[os.environ["WEIGHT_COLLECTION"]]
 
 
-@app.route("/weight<string:user_id>", methods=["GET"])
+@app.route("/weight/<string:user_id>", methods=["GET"])
 def get_weight(user_id):
     # TODO - user validation
     res = WeightCollection.find_one({"user_id": user_id}) or {}
