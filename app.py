@@ -2,7 +2,7 @@
 import pymongo
 import os
 from lib import ResponseBuilder
-from flask import Flask, jsonify, request
+from flask import Flask, request
 app = Flask(__name__)
 
 MongoClient = pymongo.MongoClient("mongodb+srv://fitbio-app:RIAUhKkDs4mVwHFH@tylercobbtestcluster-atvya.mongodb.net/test?retryWrites=true")
@@ -10,12 +10,11 @@ FitbioDB = MongoClient[os.environ["FITBIO_DB"]]
 WeightCollection = FitbioDB[os.environ["WEIGHT_COLLECTION"]]
 
 
-@app.route("/weight/<string:user_id>", methods=["GET"])
-def get_weight(user_id):
+@app.route("/weight", methods=["GET"])
+def get_weight():
     # TODO - user validation
     print(request.headers)
-    print("Getting weights for {0}".format(user_id))
-    res = WeightCollection.find_one({"user_id": user_id}) or {}
+    res = WeightCollection.find_one({"user_id": "tyler"}) or {}
 
     # ObjectId not serializable, there is probably a better way to do this
     if "_id" in res:
