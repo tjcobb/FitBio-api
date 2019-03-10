@@ -53,7 +53,7 @@ functions:
           path: weight/{user_id}
           method: get
           cors: true
-            authorizer: aws_iam
+          authorizer: aws_iam
   insert-weight:
     handler: wsgi_handler.handler
     events:
