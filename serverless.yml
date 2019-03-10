@@ -53,7 +53,8 @@ functions:
           path: weight/{user_id}
           method: get
           cors: true
-          authorizer: aws_iam
+          authorizer:
+            arn: arn:aws:cognito-idp:us-east-1:275527036335:userpool/us-east-1_zpMtD1uy0
   insert-weight:
     handler: wsgi_handler.handler
     events:
@@ -61,4 +62,5 @@ functions:
           path: weight
           method: post
           cors: true
-          authorizer: aws_iam
+          authorizer:
+            arn: arn:aws:cognito-idp:us-east-1:275527036335:userpool/us-east-1_zpMtD1uy0
