@@ -26,17 +26,19 @@ provider:
     WEIGHT_COLLECTION: ${self:custom.weightTableName}
 
 functions:
-  get_weight:
-    handler: wsgi.handler
+  get-weight:
+    handler: wsgi_handler.handler
     events:
       - http:
           path: /weight
           method: GET
+          cors: true
           authorizer: aws_iam
-  insert_weight:
-    handler: wsgi.handler
+  insert-weight:
+    handler: wsgi_handler.handler
     events:
       - http:
           path: /weight
           method: POST
+          cors: true
           authorizer: aws_iam

@@ -1,6 +1,7 @@
 # app.py
 import pymongo
 import os
+from lib import ResponseBuilder
 from flask import Flask, jsonify, request
 app = Flask(__name__)
 
@@ -20,7 +21,7 @@ def get_weight(user_id):
     if "_id" in res:
         res["_id"] = str(res["_id"])
 
-    return jsonify(res)
+    return ResponseBuilder.success(res)
 
 
 @app.route("/weight", methods=["POST"])
@@ -44,4 +45,4 @@ def insert_weight():
         upsert=True
     )
 
-    return jsonify({"message": "Done"})
+    return ResponseBuilder.success({"message": "Done"})
