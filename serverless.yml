@@ -16,6 +16,10 @@ custom:
   databaseName: 'fitbio-${self:custom.stage}'
   weightTableName: 'weights'
 
+resources:
+  # API Gateway Errors
+  - ${file(resources/api-gateway-errors.yml)}
+
 provider:
   name: aws
   runtime: python3.6
@@ -24,26 +28,6 @@ provider:
   environment:
     FITBIO_DB: ${self:custom.databaseName}
     WEIGHT_COLLECTION: ${self:custom.weightTableName}
-
-Resources:
-  GatewayResponseDefault4XX:
-    Type: 'AWS::ApiGateway::GatewayResponse'
-    Properties:
-      ResponseParameters:
-        gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
-        gatewayresponse.header.Access-Control-Allow-Headers: "'*'"
-      ResponseType: DEFAULT_4XX
-      RestApiId:
-        Ref: 'ApiGatewayRestApi'
-  GatewayResponseDefault5XX:
-    Type: 'AWS::ApiGateway::GatewayResponse'
-    Properties:
-      ResponseParameters:
-        gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
-        gatewayresponse.header.Access-Control-Allow-Headers: "'*'"
-      ResponseType: DEFAULT_5XX
-      RestApiId:
-      Ref: 'ApiGatewayRestApi'
 
 functions:
   get-weight:
