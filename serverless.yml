@@ -34,7 +34,7 @@ functions:
     handler: wsgi_handler.handler
     events:
       - http:
-          path: weight/{user_id}
+          path: weight
           method: get
           cors: true
           authorizer: aws_iam
