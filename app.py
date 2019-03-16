@@ -14,11 +14,11 @@ WeightCollection = FitbioDB[os.environ["WEIGHT_COLLECTION"]]
 @app.route("/weight/<string:user_id>", methods=["GET"])
 def get_weight(user_id):
     # TODO - user validation
-    print(vars(request.environ))
-    print(vars(request.environ.event))
-    print(vars(request.environ.event.requestContext))
-    print(vars(request.environ.event.requestContext.identity))
-    print(vars(request.environ.event.requestContext.identity.cognitoIdentityId))
+    print(request.environ)
+    print(request.environ.event)
+    print(request.environ.event.requestContext)
+    print(request.environ.event.requestContext.identity)
+    print(request.environ.event.requestContext.identity.cognitoIdentityId)
     res = WeightCollection.find_one({"user_id": user_id}) or {}
 
     # ObjectId not serializable, there is probably a better way to do this
