@@ -15,10 +15,11 @@ WeightCollection = FitbioDB[os.environ["WEIGHT_COLLECTION"]]
 def get_weight(user_id):
     # TODO - user validation
     print(request.environ)
-    print(request.environ.event)
-    print(request.environ.event.requestContext)
-    print(request.environ.event.requestContext.identity)
-    print(request.environ.event.requestContext.identity.cognitoIdentityId)
+    print(list(request.environ.keys()))
+    print(request.environ["event"])
+    print(request.environ["event"]["requestContext"])
+    print(request.environ["event"]["requestContext"]["identity"])
+    print(request.environ["event"]["requestContext"]["identity"]["cognitoIdentityId"])
     res = WeightCollection.find_one({"user_id": user_id}) or {}
 
     # ObjectId not serializable, there is probably a better way to do this
