@@ -6,7 +6,9 @@ from flask import Flask, request
 
 app = Flask(__name__)
 
-MongoClient = pymongo.MongoClient("mongodb+srv://fitbio-app:RIAUhKkDs4mVwHFH@tylercobbtestcluster-atvya.mongodb.net/test?retryWrites=true")
+
+# MongoClient = pymongo.MongoClient("mongodb+srv://fitbio-app:RIAUhKkDs4mVwHFH@tylercobbtestcluster-atvya.mongodb.net/test?retryWrites=true")
+MongoClient = pymongo.MongoClient(os.environ["MONGO_URI"])
 FitbioDB = MongoClient[os.environ["FITBIO_DB"]]
 WeightCollection = FitbioDB[os.environ["WEIGHT_COLLECTION"]]
 
